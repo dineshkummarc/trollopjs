@@ -11,7 +11,7 @@ const VERSION = "1.15";
 // Thrown by Parser in the event of a commandline error. Not needed if
 // you're using the Trollop:'options' entry.
 var CommandLineError = new Error('Command line error');
-  
+
 // Thrown by Parser if the user passes in '-h' or '--help'. Handled
 // automatically by Trollop#options.
 var HelpNeeded = new Error('Help Needed');
@@ -127,7 +127,7 @@ Parser.prototype.opt = function(name, _desc, _opts) {
   else {
     var opts = _opts;
   }
-  
+
   if( name in this.specs ) {
     throw "You already have an argument named '" + name + "'";
   }
@@ -729,7 +729,7 @@ Parser.prototype._parse_float_parameter = function(param, arg) {
 
 Parser.prototype._parse_date_parameter = function(param, arg) {
   var parsed = Date.parse(param);
-  if(isNaN(parsed)) { 
+  if(isNaN(parsed)) {
     throw "option '"+arg+"' needs a date";
   }
   else {
@@ -782,7 +782,7 @@ Parser.prototype._each_arg = function(args, callback) {
 
   while (i < args.length) {
     if(underscore.include(this.stop_words, args[i])) {
-      return remains.concat(args.slice(i)); 
+      return remains.concat(args.slice(i));
     }
 
     if( args[i].match(/^--$/) ) { // arg terminator
@@ -881,8 +881,8 @@ exports.options = function() {
       process.exit(0);
     }
     else {
-      sys.puts(err.message);
-      sys.puts(err.stack);
+      if (err.message) sys.puts(err.message);
+      if (err.stack) sys.puts(err.stack);
     }
     /*
     CommandlineError => e
